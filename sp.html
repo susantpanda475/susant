@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Job Application Form</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .container {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 600px;
+        }
+        h2 {
+            text-align: center;
+            color: #333;
+        }
+        label {
+            font-size: 14px;
+            margin-bottom: 5px;
+            display: block;
+            color: #555;
+        }
+        input, textarea, select {
+            width: 100%;
+            padding: 10px;
+            margin: 8px 0;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 14px;
+            color: #555;
+        }
+        textarea {
+            resize: vertical;
+            min-height: 100px;
+        }
+        .form-group {
+            margin-bottom: 20px;
+        }
+        .button-container {
+            text-align: center;
+        }
+        button {
+            padding: 12px 20px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        .error {
+            color: red;
+            font-size: 12px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Job Application Form</h2>
+        <form id="job-application-form" action="#" method="POST">
+            <!-- Full Name -->
+            <div class="form-group">
+                <label for="full-name">Full Name:</label>
+                <input type="text" id="full-name" name="full-name" required placeholder="Enter your full name">
+                <span class="error" id="error-full-name"></span>
+            </div>
+
+            <!-- Email Address -->
+            <div class="form-group">
+                <label for="email">Email Address:</label>
+                <input type="email" id="email" name="email" required placeholder="Enter your email">
+                <span class="error" id="error-email"></span>
+            </div>
+
+            <!-- Phone Number -->
+            <div class="form-group">
+                <label for="phone">Phone Number:</label>
+                <input type="tel" id="phone" name="phone" required placeholder="Enter your phone number">
+                <span class="error" id="error-phone"></span>
+            </div>
+
+            <!-- Resume Upload -->
+            <div class="form-group">
+                <label for="resume">Upload Resume:</label>
+                <input type="file" id="resume" name="resume" required>
+                <span class="error" id="error-resume"></span>
+            </div>
+
+            <!-- Cover Letter -->
+            <div class="form-group">
+                <label for="cover-letter">Cover Letter:</label>
+                <textarea id="cover-letter" name="cover-letter" required placeholder="Write a short cover letter"></textarea>
+                <span class="error" id="error-cover-letter"></span>
+            </div>
+
+            <!-- Job Position -->
+            <div class="form-group">
+                <label for="position">Position Applying For:</label>
+                <select id="position" name="position" required>
+                    <option value="">Select a position</option>
+                    <option value="developer">Software Developer</option>
+                    <option value="designer">UI/UX Designer</option>
+                    <option value="manager">Project Manager</option>
+                    <option value="hr">HR Manager</option>
+                </select>
+            </div>
+
+            <!-- Submit Button -->
+            <div class="button-container">
+                <button type="submit">Submit Application</button>
+            </div>
+        </form>
+    </div>
+
+    <script>
+        // Basic form validation
+        document.getElementById('job-application-form').addEventListener('submit', function(event) {
+            event.preventDefault();
+
+            let isValid = true;
+
+            // Clear previous errors
+            document.querySelectorAll('.error').forEach(function(errorElement) {
+                errorElement.textContent = '';
+            });
+
+            // Validate Full Name
+            const fullName = document.getElementById('full-name').value;
+            if (fullName.trim() === '') {
+                document.getElementById('error-full-name').textContent = 'Full Name is required';
+                isValid = false;
+            }
+
+            // Validate Email
+            const email = document.getElementById('email').value;
+            const emailPattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
+            if (!emailPattern.test(email)) {
+                document.getElementById('error-email').textContent = 'Please enter a valid email address';
+                isValid = false;
+            }
+
+            // Validate Phone
+            const phone = document.getElementById('phone').value;
+            const phonePattern = /^[0-9]{10}$/;
+            if (!phonePattern.test(phone)) {
+                document.getElementById('error-phone').textContent = 'Please enter a valid 10-digit phone number';
+                isValid = false;
+            }
+
+            // Validate Resume Upload
+            const resume = document.getElementById('resume').files.length;
+            if (resume === 0) {
+                document.getElementById('error-resume').textContent = 'Resume upload is required';
+                isValid = false;
+            }
+
+            // Validate Cover Letter
+            const coverLetter = document.getElementById('cover-letter').value;
+            if (coverLetter.trim() === '') {
+                document.getElementById('error-cover-letter').textContent = 'Cover letter is required';
+                isValid = false;
+            }
+
+            if (isValid) {
+                alert('Application submitted successfully!');
+                // You can add form submission logic here
+            }
+        });
+    </script>
+</body>
+</html>
